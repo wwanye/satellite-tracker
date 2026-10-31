@@ -33,8 +33,18 @@ height = wgs84.height_of(position) #this will return the distance from the surfa
 
 height = height.km #convert to km
 name = iss.name
+difference = iss - clemson
 
 for ti, event in zip(times, events):
-    name = event_names[event]
+    event_name = event_names[event]
     local_time = ti.astimezone(eastern)
-    print(local_time.strftime('%Y-%m-%d %H:%M:%S'), name)
+    
+
+    if event_name == "Highest point":
+        topocentric = difference.at(ti)
+        alt, az, distance = topocentric.altaz()
+        print(f"{local_time.strftime('%Y-%m-%d %H:%M:%S')} {event_name} of {name} Alt: {alt.degrees:.2f} degrees and Az: {az.degrees:.2f} degrees.")
+    else:
+        print(f"{local_time.strftime('%Y-%m-%d %H:%M:%S')} {event_name} of {name}")
+        if event_name == "Set":
+            print()
