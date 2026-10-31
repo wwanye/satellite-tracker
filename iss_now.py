@@ -34,12 +34,6 @@ height = wgs84.height_of(position) #this will return the distance from the surfa
 height = height.km #convert to km
 name = iss.name
 
-#print(f"Tracking the {name}")
-#print(f"Latitude: {lat.degrees:.2f}°")
-#print(f"Longitude: {lon.degrees:.2f}°")
-#print(f"Height: {height:.0f} km")
-#print(times, events)
-
 for ti, event in zip(times, events):
     name = event_names[event]
     local_time = ti.astimezone(eastern)
