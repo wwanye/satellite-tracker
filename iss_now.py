@@ -1,7 +1,14 @@
 from skyfield.api import load, wgs84
 
 url = "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle"
-satellites = load.tle_file(url)
+
+if load.exists("gp.php") == False or load.days_old("gp.php") > 1:
+    satellites = load.tle_file(url, reload=True)
+else:
+    satellites = load.tle_file("gp.php")
+
+
+
 iss = None
 
 for sat in satellites:
