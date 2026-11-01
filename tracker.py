@@ -1,5 +1,6 @@
 """Core satellite tracking logic: load orbital data, find satellites, and predict passes."""
 
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import numpy as np
@@ -7,6 +8,7 @@ from skyfield.api import load, wgs84
 
 TLE_URL = "https://celestrak.org/NORAD/elements/gp.php?GROUP=stations&FORMAT=tle"
 TLE_FILE = "gp.php"
+BACKUP_FILE = str(Path(__file__).parent / "stations_backup.tle")  # snapshot used if download fails
 EVENT_NAMES = ("Rise", "Highest point", "Set")
 MIN_ALTITUDE_DEG = 10.0  # elevation mask: ignore anything lower in the sky than this
 
@@ -16,9 +18,16 @@ def load_satellites():
 
     Downloads fresh data only if the local file is missing or more than a day old,
     to keep predictions accurate without overloading CelesTrak's free service.
+    If the download fails, falls back to the last downloaded file, then to a
+    backup snapshot committed with the project.
     """
     if not load.exists(TLE_FILE) or load.days_old(TLE_FILE) > 1:
-        return load.tle_file(TLE_URL, filename=TLE_FILE, reload=True)
+        try:
+            return load.tle_file(TLE_URL, filename=TLE_FILE, reload=True)
+        except OSError:
+            if load.exists(TLE_FILE):
+                return load.tle_file(TLE_FILE)
+            return load.tle_file(BACKUP_FILE)
     return load.tle_file(TLE_FILE)
 
 

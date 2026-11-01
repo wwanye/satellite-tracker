@@ -2,7 +2,7 @@
 
 A web app that tracks satellites in real time and predicts when they will pass over any location on Earth, using live orbital data.
 
-**Live app:** [add your Streamlit link here]
+**Live app:** [satellite-pass-predictor.streamlit.app](https://satellite-pass-predictor.streamlit.app)
 
 ![App screenshot](screenshot.png)
 
@@ -27,7 +27,7 @@ Python · Skyfield · Streamlit · pandas · NumPy
 ## Run it locally
 
 ```bash
-git clone https://github.com/<your-username>/satellite-tracker.git
+git clone https://github.com/wwanye/satellite-tracker.git
 cd satellite-tracker
 python -m venv .venv
 .venv\Scripts\activate        # Windows (macOS/Linux: source .venv/bin/activate)
