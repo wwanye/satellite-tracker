@@ -2,7 +2,7 @@
 
 A web app that tracks satellites in real time and predicts when they will pass over any location on Earth, using live orbital data.
 
-**Live app:** [satellite-pass-predictor.streamlit.app](https://satellite-pass-predictor.streamlit.app)
+**Live app:** [satelitte-pass-predictor.streamlit.app](https://satellite-pass-predictor.streamlit.app)
 
 ![App screenshot](screenshot.png)
 
